@@ -4,10 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Security.Cryptography;
 
-
-/// <summary>
-/// Summary description for HashService
-/// </summary>
 public static class HashService {
     public static string ComputeHash(byte[] bytesToHash, byte[] salt) {
         var byteResult = new Rfc2898DeriveBytes(bytesToHash, salt, 10000);

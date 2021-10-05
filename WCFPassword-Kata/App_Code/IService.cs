@@ -14,6 +14,8 @@ public interface IService {
 
     [OperationContract]
     bool SendResetEmail(string email);
+    [OperationContract]
+    void AddUser(User user);
 }
 
 [DataContract]
