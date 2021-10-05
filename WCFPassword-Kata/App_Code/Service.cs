@@ -5,26 +5,13 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Security.Cryptography;
 
-// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service" in code, svc and config file together.
-public class Service : IService
-{
-	public string GetData(int value)
-	{
-		return string.Format("You entered: {0}", value);
-	}
-
-	public CompositeType GetDataUsingDataContract(CompositeType composite)
-	{
-		if (composite == null)
-		{
-			throw new ArgumentNullException("composite");
-		}
-		if (composite.BoolValue)
-		{
-			composite.StringValue += "Suffix";
-		}
-		return composite;
-	}
-
+public class Service : IService {
+    public bool AreValidUserCredentials(User user) {
+        throw new NotImplementedException();
+    }
+    public bool SendResetEmail(string email) {
+        throw new NotImplementedException();
+    }
 }
