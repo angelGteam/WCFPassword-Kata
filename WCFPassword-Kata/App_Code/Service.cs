@@ -5,12 +5,14 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
-using System.Security.Cryptography;
 
 public class Service : IService {
     public bool AreValidUserCredentials(User user) {
-        throw new NotImplementedException();
+        var newSalt = HashService.GenerateSalt();
+        var hashedPassword = HashService.ComputeHash(Encoding.UTF8.GetBytes(user.Password), Encoding.UTF8.GetBytes(newSalt));
+        return UserRepository.CheckPassword(user.UserName, hashedPassword);
     }
+
     public bool SendResetEmail(string email) {
         throw new NotImplementedException();
     }

@@ -22,5 +22,5 @@ public class User {
     public string UserName { get; set; }
  
     [DataMember]
-    public int Password { get; set; }
+    public string Password { get; set; }
 }
