@@ -5,15 +5,16 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
-using WCFPassword_Kata.Services.Models;
+using WCFPassword_Kata.Domain.Models;
+using WCFPassword_Kata.Services.Services;
 
 public class Service : IService {
-    UserRepository _userRepository;
+    UserService _userRepository;
     HashService _hashService;
     MailService _mailService;
 
     public Service() {
-        _userRepository = new UserRepository();
+        _userRepository = new UserService();
         _hashService = new HashService();
         _mailService = new MailService();
     }
@@ -33,6 +34,8 @@ public class Service : IService {
     }
 
     public void SendResetEmail(User user) {
-        _mailService.SendResetEmail(user);
+        if(_userRepository.ContainsEmail(user.Email)) {
+            _mailService.SendResetEmail(user);
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WCFPassword_Kata.Services.Models {
+namespace WCFPassword_Kata.Domain.Models {
     [DataContract]
     public class User {
         public User(string userName, string password, string email, string salt) {

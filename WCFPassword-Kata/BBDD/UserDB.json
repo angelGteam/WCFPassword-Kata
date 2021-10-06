@@ -1,1 +1,8 @@
-[{"UserName":"Jose","Password":"HTowO6ps87aufXRfyYEytDqKuAix93i/","Email":"email@gmail.com","Salt":"aQKTD52Vw70ekOndsrPR0A=="}]
+[
+  {
+    "UserName": "Jose",
+    "Password": "HTowO6ps87aufXRfyYEytDqKuAix93i/",
+    "Email": "smtptesting0610@gmail.com",
+    "Salt": "aQKTD52Vw70ekOndsrPR0A=="
+  }
+]

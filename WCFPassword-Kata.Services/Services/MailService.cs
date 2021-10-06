@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using WCFPassword_Kata.Services.Interfaces;
-using WCFPassword_Kata.Services.Models;
+using WCFPassword_Kata.Domain.Models;
+using WCFPassword_Kata.Services.Services;
 
 public class MailService : IMailService {
     SmtpClient _smtpClient;
@@ -25,11 +25,12 @@ public class MailService : IMailService {
     }
 
     private static MailMessage BuildMailMessage(User user) {
+        ITokenService tokenService = new TokenService();
         return new MailMessage {
             From = new MailAddress(user.Email),
             Subject = "Password Change",
-            Body = @"Your sent an email to reset your password, go to the link below, to change it:
-www.google.com",//+token,
+            Body = $@"Your sent an email to reset your password, go to the link below, to change it:
+www.google/{tokenService.GenerateToken(user)}.com",
             IsBodyHtml = true,
         };
     }
