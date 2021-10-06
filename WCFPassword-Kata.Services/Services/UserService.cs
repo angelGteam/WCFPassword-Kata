@@ -21,6 +21,7 @@ namespace WCFPassword_Kata.Services.Services {
 
         public string GetPasswordByUser(string userName) =>
             _userRepository.GetPasswordByUser(userName);
+
         public bool ContainsEmail(string email) =>
             _userRepository.ContainsEmail(email);
     }
