@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 namespace WCFPassword_Kata.Services.Models {
     [DataContract]
     public class User {
-        public User(string userName, string password, string email) {
+        public User(string userName, string password, string email, string salt) {
             UserName = userName;
             Password = password;
             Email = email;
+            Salt = salt;
         }
 
         [DataMember]
@@ -22,5 +23,8 @@ namespace WCFPassword_Kata.Services.Models {
 
         [DataMember]
         public string Email { get; set; }
+
+        [DataMember]
+        public string Salt { get; set; }
     }
 }

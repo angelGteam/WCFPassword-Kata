@@ -16,20 +16,21 @@ public class MailService : IMailService {
             Credentials = new NetworkCredential("smtptesting0610@gmail.com", "Aa.12345"),
             EnableSsl = true,
         };
-
     }
 
     public void SendResetEmail(User user) {
-        var mailMessage = new MailMessage {
+        MailMessage mailMessage = BuildMailMessage(user);
+        mailMessage.To.Add("smtptesting0610@gmail.com");
+        _smtpClient.Send(mailMessage);
+    }
+
+    private static MailMessage BuildMailMessage(User user) {
+        return new MailMessage {
             From = new MailAddress(user.Email),
             Subject = "Password Change",
             Body = @"Your sent an email to reset your password, go to the link below, to change it:
-www.google.com",
+www.google.com",//+token,
             IsBodyHtml = true,
         };
-        mailMessage.To.Add("smtptesting0610@gmail.com");
-
-        _smtpClient.Send(mailMessage);
-
     }
 }

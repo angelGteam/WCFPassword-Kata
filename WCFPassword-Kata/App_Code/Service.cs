@@ -8,26 +8,31 @@ using System.Text;
 using WCFPassword_Kata.Services.Models;
 
 public class Service : IService {
+    UserRepository _userRepository;
+    HashService _hashService;
+    MailService _mailService;
+
+    public Service() {
+        _userRepository = new UserRepository();
+        _hashService = new HashService();
+        _mailService = new MailService();
+    }
+
     public void AddUser(User user) {
-        var _userRepository = new UserRepository();
-        var _hashService = new HashService();
         var newSalt = _hashService.GenerateSalt();
         var hashedPassword = _hashService.ComputeHash(Encoding.UTF8.GetBytes(user.Password), Encoding.UTF8.GetBytes(newSalt));
         user.Password = hashedPassword;
+        user.Salt = newSalt;
         _userRepository.AddUser(user);
     }
 
     public bool AreValidUserCredentials(User user) {
-        var _userRepository = new UserRepository();
-        var _hashService = new HashService();
-        var newSalt = _hashService.GenerateSalt();
-        var hashedPassword = _hashService.ComputeHash(Encoding.UTF8.GetBytes(user.Password), Encoding.UTF8.GetBytes(newSalt));
+        var hashedPassword = _hashService.ComputeHash(Encoding.UTF8.GetBytes(user.Password), Encoding.UTF8.GetBytes(user.Salt));
         string userPassword = _userRepository.GetPasswordByUser(user.UserName);
         return _userRepository.CheckPassword(userPassword, hashedPassword);
     }
 
     public void SendResetEmail(User user) {
-        var _emailService = new MailService();
-        _emailService.SendResetEmail(user);
+        _mailService.SendResetEmail(user);
     }
 }

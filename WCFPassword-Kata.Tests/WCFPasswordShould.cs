@@ -14,23 +14,23 @@ namespace WCFPassword_Kata.Tests {
             _hashService = new HashService();
             _userRepositoryMock = new Mock<IUserRepository>();
             //It.IsAny<string>()
-            _userRepositoryMock.Setup(a => a.GetPasswordByUser("Angel")).Returns("nBJuSdtnRfcbHApWvWT6CfMOi8bWv0NF");
+            _userRepositoryMock.Setup(a => a.GetPasswordByUser("Jose")).Returns("HTowO6ps87aufXRfyYEytDqKuAix93i/");
         }
 
         [Fact]
         public void CheckPassWord_WithStandardUser() {
-            var testUser = new User("Angel", "Password","");
-            var userPass = _userRepositoryMock.Object.GetPasswordByUser("Angel");
-            var newSalt = _hashService.GenerateSalt();
-            var hashedPassword = _hashService.ComputeHash(Encoding.UTF8.GetBytes(testUser.Password), Encoding.UTF8.GetBytes(newSalt));
+            var testUser = new User("Jose", "Password","email@gmail.com","aQKTD52Vw70ekOndsrPR0A==");
+            var userPass = _userRepositoryMock.Object.GetPasswordByUser("Jose");
+            var hashedPassword = _hashService.ComputeHash(Encoding.UTF8.GetBytes(testUser.Password), Encoding.UTF8.GetBytes(testUser.Salt));
             Assert.NotNull(hashedPassword);
             Assert.NotNull(userPass);
             Assert.True(_userRepository.CheckPassword(userPass, hashedPassword));
         }
+
         [Fact]
         public void CheckPassWord_ReturnsCorrectPassword() {
-            string checkedPassword = _userRepository.GetPasswordByUser("Angel");
-            Assert.True(checkedPassword.Equals("nBJuSdtnRfcbHApWvWT6CfMOi8bWv0NF"));
+            string checkedPassword = _userRepository.GetPasswordByUser("Jose");
+            Assert.True(checkedPassword.Equals("HTowO6ps87aufXRfyYEytDqKuAix93i/"));
         }
     }
 }

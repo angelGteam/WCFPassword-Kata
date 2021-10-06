@@ -12,6 +12,9 @@ public class UserRepository : IUserRepository{
 
     public UserRepository() {
         _userList = JsonConvert.DeserializeObject<List<User>>(ReadRepositoryOfItems());
+        if(_userList ==null) {
+            _userList = new List<User>();
+        }
     }
 
     private string ReadRepositoryOfItems() {
