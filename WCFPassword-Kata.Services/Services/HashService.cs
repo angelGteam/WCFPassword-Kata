@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Security.Cryptography;
 
-public static class HashService {
-    public static string ComputeHash(byte[] bytesToHash, byte[] salt) {
+public class HashService : IHashService{
+    public string ComputeHash(byte[] bytesToHash, byte[] salt) {
         var byteResult = new Rfc2898DeriveBytes(bytesToHash, salt, 10000);
         return Convert.ToBase64String(byteResult.GetBytes(24));
     }
 
-    public static string GenerateSalt() {
+    public string GenerateSalt() {
         var bytes = new byte[128 / 8];
         var rng = new RNGCryptoServiceProvider();
         rng.GetBytes(bytes);

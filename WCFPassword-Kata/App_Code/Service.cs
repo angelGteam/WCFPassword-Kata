@@ -5,19 +5,24 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using WCFPassword_Kata.Services.Models;
 
 public class Service : IService {
     public void AddUser(User user) {
-        var newSalt = HashService.GenerateSalt();
-        var hashedPassword = HashService.ComputeHash(Encoding.UTF8.GetBytes(user.Password), Encoding.UTF8.GetBytes(newSalt));
+        var _userRepository = new UserRepository();
+        var _hashService = new HashService();
+        var newSalt = _hashService.GenerateSalt();
+        var hashedPassword = _hashService.ComputeHash(Encoding.UTF8.GetBytes(user.Password), Encoding.UTF8.GetBytes(newSalt));
         user.Password = hashedPassword;
-        UserRepository.AddUser(user);
+        _userRepository.AddUser(user);
     }
 
     public bool AreValidUserCredentials(User user) {
-        var newSalt = HashService.GenerateSalt();
-        var hashedPassword = HashService.ComputeHash(Encoding.UTF8.GetBytes(user.Password), Encoding.UTF8.GetBytes(newSalt));
-        return UserRepository.CheckPassword(user.UserName, hashedPassword);
+        var _userRepository = new UserRepository();
+        var _hashService = new HashService();
+        var newSalt = _hashService.GenerateSalt();
+        var hashedPassword = _hashService.ComputeHash(Encoding.UTF8.GetBytes(user.Password), Encoding.UTF8.GetBytes(newSalt));
+        return _userRepository.CheckPassword(user.UserName, hashedPassword);
     }
 
     public bool SendResetEmail(string email) {
