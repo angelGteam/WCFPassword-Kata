@@ -6,5 +6,6 @@ using WCFPassword_Kata.Services.Models;
 
 public interface IUserRepository {
     void AddUser(User user);
-    bool CheckPassword(string userName, string hashedPassword);
+    bool CheckPassword(string storedUserPassword, string userPassword);
+    string GetPasswordByUser(string userName);
 }

@@ -22,7 +22,8 @@ public class Service : IService {
         var _hashService = new HashService();
         var newSalt = _hashService.GenerateSalt();
         var hashedPassword = _hashService.ComputeHash(Encoding.UTF8.GetBytes(user.Password), Encoding.UTF8.GetBytes(newSalt));
-        return _userRepository.CheckPassword(user.UserName, hashedPassword);
+        string userPassword = _userRepository.GetPasswordByUser(user.UserName);
+        return _userRepository.CheckPassword(userPassword, hashedPassword);
     }
 
     public bool SendResetEmail(string email) {

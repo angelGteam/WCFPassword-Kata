@@ -23,9 +23,13 @@ public class UserRepository : IUserRepository{
         return _userList.FindIndex(m => m.UserName == userName);
     }
 
-    public bool CheckPassword(string userName, string hashedPassword) {
+    public bool CheckPassword(string storedUserPassword, string userPassword) {
+        return userPassword == storedUserPassword;
+    }
+
+    public string GetPasswordByUser(string userName) {
         int position = GetIndex(userName);
-        return _userList[0].Password == hashedPassword;
+        return _userList[position].Password;
     }
     
     private void SaveChanges() {

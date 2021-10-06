@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 namespace WCFPassword_Kata.Services.Models {
     [DataContract]
     public class User {
+        public User(string userName, string password) {
+            UserName = userName;
+            Password = password;
+        }
+
         [DataMember]
         public string UserName { get; set; }
 
