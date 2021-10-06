@@ -26,7 +26,8 @@ public class Service : IService {
         return _userRepository.CheckPassword(userPassword, hashedPassword);
     }
 
-    public bool SendResetEmail(string email) {
-        throw new NotImplementedException();
+    public void SendResetEmail(User user) {
+        var _emailService = new MailService();
+        _emailService.SendResetEmail(user);
     }
 }

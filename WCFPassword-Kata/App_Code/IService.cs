@@ -14,7 +14,7 @@ public interface IService {
     bool AreValidUserCredentials(User user);
 
     [OperationContract]
-    bool SendResetEmail(string email);
+    void SendResetEmail(User user);
     [OperationContract]
     void AddUser(User user);
 }

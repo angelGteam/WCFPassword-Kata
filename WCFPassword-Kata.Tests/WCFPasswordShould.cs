@@ -19,7 +19,7 @@ namespace WCFPassword_Kata.Tests {
 
         [Fact]
         public void CheckPassWord_WithStandardUser() {
-            var testUser = new User("Angel", "Password");
+            var testUser = new User("Angel", "Password","");
             var userPass = _userRepositoryMock.Object.GetPasswordByUser("Angel");
             var newSalt = _hashService.GenerateSalt();
             var hashedPassword = _hashService.ComputeHash(Encoding.UTF8.GetBytes(testUser.Password), Encoding.UTF8.GetBytes(newSalt));

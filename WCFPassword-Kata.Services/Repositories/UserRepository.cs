@@ -10,6 +10,10 @@ public class UserRepository : IUserRepository{
     private List<User> _userList =  new List<User>(); //JsonConvert.DeserializeObject<List<User>>(ReadRepositoryOfItems());
     private string _path = @"C:\Users\gteam\source\repos\Katas\WCFPassword-Kata\WCFPassword-Kata\BBDD\UserDB.json";
 
+    public UserRepository() {
+        _userList = JsonConvert.DeserializeObject<List<User>>(ReadRepositoryOfItems());
+    }
+
     private string ReadRepositoryOfItems() {
         return File.ReadAllText(_path);
     }
